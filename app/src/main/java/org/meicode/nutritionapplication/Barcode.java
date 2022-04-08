@@ -18,12 +18,16 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.meicode.nutritionapplication.pojo.Item;
+
 public class Barcode extends AppCompatActivity {
 
     //Initialize variable
 
     Button btScan, contentCopy,databaseCheck;
     TextView barResult,barContent;
+    DBHelper DB;
+
 
 
     @Override
@@ -38,7 +42,7 @@ public class Barcode extends AppCompatActivity {
         barContent = findViewById(R.id.barcodeContent);
         contentCopy = findViewById(R.id.copyContent);
         databaseCheck = findViewById(R.id.checkDatabase);
-
+        DB = new DBHelper(this);
         contentCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,6 +104,12 @@ public class Barcode extends AppCompatActivity {
 
         barContent.setText(barcodeContent[0]);
 
+        String barcodeID = barContent.getText().toString();
+
+        Item item = DB.retrieveItem(barcodeID);
+        System.out.println(item.getCarbohydrates() + " , " + item.getItemName());
+
+
 
         //check condition
         if (intentResult.getContents()!= null){
@@ -127,6 +137,8 @@ public class Barcode extends AppCompatActivity {
             //Display toast
             Toast.makeText(getApplicationContext(),"oops... You did not scan anything",Toast.LENGTH_SHORT).show();
         }
+
+
     }
 
 }

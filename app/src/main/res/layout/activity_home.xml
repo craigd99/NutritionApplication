@@ -45,4 +45,14 @@
         android:text="Barcode"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnItemRedirect"
+        android:layout_width="190dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="284dp"
+        android:text="Add Item ( Admin use only )"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
