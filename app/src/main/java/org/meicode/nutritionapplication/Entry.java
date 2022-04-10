@@ -57,7 +57,7 @@ public class Entry extends AppCompatActivity {
                             Boolean insert = DB.insertData(user, pass,insulinvalue);
                             if (insert == true) {
                                 Toast.makeText(Entry.this, "Registered successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), Home.class);
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(Entry.this, "Registration failed", Toast.LENGTH_SHORT).show();

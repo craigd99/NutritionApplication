@@ -8,6 +8,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +26,7 @@ public class Barcode extends AppCompatActivity {
     //Initialize variable
 
     Button btScan, contentCopy,databaseCheck;
-    TextView barResult,barContent;
+    TextView barResult,barContent, textItemName, textCarbohydrates;
     DBHelper DB;
 
 
@@ -42,6 +43,8 @@ public class Barcode extends AppCompatActivity {
         barContent = findViewById(R.id.barcodeContent);
         contentCopy = findViewById(R.id.copyContent);
         databaseCheck = findViewById(R.id.checkDatabase);
+        textItemName = findViewById(R.id.txtItemName);
+        textCarbohydrates = findViewById(R.id.txtCarbohydrates);
         DB = new DBHelper(this);
         contentCopy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +112,25 @@ public class Barcode extends AppCompatActivity {
         Item item = DB.retrieveItem(barcodeID);
         System.out.println(item.getCarbohydrates() + " , " + item.getItemName());
 
+        textCarbohydrates.setText(item.getCarbohydrates());
 
+        int carbs = Integer.parseInt(textCarbohydrates.getText().toString());
+
+        if(carbs <= 30){
+            textCarbohydrates.setTextColor(Color.GREEN);
+        }
+        else{
+            if(carbs >= 30 & carbs <= 60){
+                textCarbohydrates.setTextColor(Color.YELLOW);
+            }
+            else{
+                if(carbs >= 60 & carbs <= 90){
+                    textCarbohydrates.setTextColor(Color.RED);
+                }
+            }
+        }
+
+        textItemName.setText(item.getItemName());
 
         //check condition
         if (intentResult.getContents()!= null){

@@ -15,14 +15,14 @@ import org.meicode.nutritionapplication.pojo.Item;
     public static final String DBNAME = "NutritionDatabase2.0.1.db";
 
     public DBHelper(@Nullable Context context) {
-        super(context, "NutritionDatabase2.0.1.db", null, 1);
+        super(context, "NutritionDatabase2.0.2.db", null, 1);
     }
 
     //Creating the table
     @Override
     public void onCreate(SQLiteDatabase MyDB) {
         MyDB.execSQL("create Table users(username TEXT primary key, password TEXT, insulin TEXT)");
-        MyDB.execSQL("create Table restaurants(restaurantname TEXT primary key, subcategory TEXT, itemname TEXT, carbohydrates INT )");
+        MyDB.execSQL("create Table restaurants(restaurantname TEXT primary key, subcategory TEXT, itemname TEXT, carbohydrates REAL )");
         MyDB.execSQL("create Table foodItems(id INTEGER primary key AUTOINCREMENT, itemname TEXT, carbohydrates INT, barcodeID TEXT )");
     }
 
@@ -48,7 +48,7 @@ import org.meicode.nutritionapplication.pojo.Item;
             return true;
     }
 
-    public Boolean insertDataRestaurants(String restaurantname, String subcategory, String itemname, String carbohydrates) {
+    public Boolean insertDataRestaurants(String restaurantname, String subcategory, String itemname, Double carbohydrates) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -118,6 +118,14 @@ import org.meicode.nutritionapplication.pojo.Item;
         MYDB.update("users", contentValues, "username = ?", new String[]{username});
         return true;
     }
+
+     public Boolean updatePassword(String password, String username) {
+         SQLiteDatabase MYDB = this.getWritableDatabase();
+         ContentValues contentValues = new ContentValues();
+         contentValues.put("password", password);
+         MYDB.update("users", contentValues, "username = ?", new String[]{username});
+         return true;
+     }
 
     public Item retrieveItem(String barcodeID) {
         SQLiteDatabase MYDB = this.getReadableDatabase();
