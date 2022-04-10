@@ -10,6 +10,10 @@ import androidx.annotation.Nullable;
 
 import org.meicode.nutritionapplication.pojo.Item;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+
  public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DBNAME = "NutritionDatabase2.0.1.db";
@@ -62,6 +66,20 @@ import org.meicode.nutritionapplication.pojo.Item;
             return true;
     }
 
+    public List<String> getAllRestaurants() {
+        List<String> list = new ArrayList<String>();
+        SQLiteDatabase MYDB = this.getReadableDatabase();
+
+        Cursor cursor = MYDB.rawQuery("Select restaurantname From restaurants", null);
+        if (cursor.moveToFirst()) ;
+        {
+            do {
+                list.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+            cursor.close();
+            return list;
+        }
+    }
     public Boolean insertFoodData(String itemname, int carbohydrates, String barcodeID) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

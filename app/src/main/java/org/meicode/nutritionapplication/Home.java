@@ -9,7 +9,8 @@ import android.widget.Button;
 
 public class Home extends AppCompatActivity {
 
-    Button profileButton, restaurantButton, barcodeButton, addItemRedirect, addRestaurantItemRedirect;
+    Button profileButton, restaurantButton, barcodeButton, addItemRedirect, addRestaurantItemRedirect,
+            restaurantItemSelection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class Home extends AppCompatActivity {
         barcodeButton = (Button) findViewById(R.id.Barcode);
         addItemRedirect = (Button) findViewById(R.id.btnItemRedirect);
         addRestaurantItemRedirect = (Button) findViewById(R.id.btnRestaurantItemRedirect);
+        restaurantItemSelection = (Button) findViewById(R.id.btnRestaurantItemSelection);
 
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +63,14 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AddRestaurantItems.class);
+                startActivity(intent);
+            }
+        });
+
+        restaurantItemSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), RestaurantItems.class);
                 startActivity(intent);
             }
         });
