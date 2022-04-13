@@ -1,6 +1,8 @@
 package org.meicode.nutritionapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,10 +26,9 @@ public class RestaurantItemSelection extends AppCompatActivity implements Adapte
 
     Spinner restaurantItemSelection;
     DBHelper DB;
-    ListView restaurantFoodItems;
-    TextView restaurantFoodItemTextView;
-    Button addRestaurantItem;
-
+    TextView restaurantFoodItemOne, restaurantFoodItemTwo,restaurantFoodItemThree, restaurantFoodItemOneCarbs
+            ,restaurantFoodItemTwoCarbs,restaurantFoodItemThreeCarbs;
+    Button saveSelection, saveSelectionTwo, saveSelectionThree, restaurantCalculation;
 
 
     @Override
@@ -36,15 +37,22 @@ public class RestaurantItemSelection extends AppCompatActivity implements Adapte
         setContentView(R.layout.activity_restaurant_item_selection);
 
         restaurantItemSelection = (Spinner) findViewById(R.id.spinnerRestaurantItemSelectionNew);
-        restaurantFoodItems = (ListView) findViewById(R.id.restaurantItemList);
-        restaurantFoodItemTextView = (TextView) findViewById(R.id.restaurantTextView);
-        addRestaurantItem = (Button) findViewById(R.id.addToRestaurantFoodList);
+        restaurantFoodItemOne = (TextView) findViewById(R.id.restaurantItemOne);
+        restaurantFoodItemOneCarbs = (TextView) findViewById(R.id.restaurantItemOneCarbs);
+        restaurantFoodItemTwo = (TextView) findViewById(R.id.restaurantItemTwo);
+        restaurantFoodItemTwoCarbs = (TextView) findViewById(R.id.restaurantItemTwoCarbs);
+        restaurantFoodItemThree = (TextView) findViewById(R.id.restaurantItemThree);
+        restaurantFoodItemThreeCarbs = (TextView) findViewById(R.id.restaurantItemThreeCarbs);
+        saveSelection = (Button) findViewById(R.id.btnSaveSelection);
+        saveSelectionTwo = (Button) findViewById(R.id.btnSaveSelection2);
+        saveSelectionThree = (Button) findViewById(R.id.btnSaveSelection3);
+        restaurantCalculation = (Button) findViewById(R.id.restaurantCalculations);
 
         DB = new DBHelper(this);
 
         restaurantItemSelection.setOnItemSelectedListener(this);
 
-       loadRestaurantSpinnerData();
+        loadRestaurantSpinnerData();
 
     }
 
@@ -71,21 +79,70 @@ public class RestaurantItemSelection extends AppCompatActivity implements Adapte
     }
 
 
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        List<String> selectedItems = new ArrayList<String>();
-        selectedItems.add(restaurantItemSelection.getSelectedItem().toString());
-        restaurantFoodItemTextView.setText(selectedItems.get(0));
+
+        saveSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> selectedItems = new ArrayList<String>();
+                selectedItems.add(restaurantItemSelection.getSelectedItem().toString());
+                restaurantFoodItemOne.setText(selectedItems.get(0));
+                String itemname = restaurantFoodItemOne.getText().toString();
+                int itemresult = DB.getRestaurantCarbohydrates(itemname);
+                restaurantFoodItemOneCarbs.setText(Integer.toString(itemresult));
+            }
+        });
 
 
-        ArrayAdapter restaurantItemAdapter = new ArrayAdapter(this,
-                R.layout.activity_restaurant_item_selection,R.id.restaurantTextView,selectedItems);
-        restaurantFoodItems.setAdapter(restaurantItemAdapter);
+        saveSelectionTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> selectedItems = new ArrayList<String>();
+                selectedItems.add(restaurantItemSelection.getSelectedItem().toString());
+                restaurantFoodItemTwo.setText(selectedItems.get(0));
+                String itemname = restaurantFoodItemTwo.getText().toString();
+                int itemresult = DB.getRestaurantCarbohydrates(itemname);
+                restaurantFoodItemTwoCarbs.setText(Integer.toString(itemresult));
+
+            }
+        });
+
+        saveSelectionThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> selectedItems = new ArrayList<String>();
+                selectedItems.add(restaurantItemSelection.getSelectedItem().toString());
+                restaurantFoodItemThree.setText(selectedItems.get(0));
+                String itemname = restaurantFoodItemThree.getText().toString();
+                int itemresult = DB.getRestaurantCarbohydrates(itemname);
+                restaurantFoodItemThreeCarbs.setText(Integer.toString(itemresult));
+
+            }
+        });
+
+        restaurantCalculation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                String insulin = sharedPreferences.getString("insulin", "no");
+                int insulinNum = Integer.parseInt(insulin);
+                int carbsNum = Integer.parseInt(restaurantFoodItemOneCarbs.getText().toString());
+                int carbsNumTwo = Integer.parseInt(restaurantFoodItemTwoCarbs.getText().toString());
+                int carbsNumThree = Integer.parseInt(restaurantFoodItemThreeCarbs.getText().toString());
+                int totalcarbs = carbsNum+carbsNumTwo+carbsNumThree;
+                System.out.println(totalcarbs % 10);
+                System.out.println(totalcarbs / (insulinNum/10));
+
+
+
+            }
+        });
     }
-
-
-
-
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 

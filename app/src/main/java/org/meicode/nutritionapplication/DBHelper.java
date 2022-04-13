@@ -10,10 +10,8 @@ import androidx.annotation.Nullable;
 
 import org.meicode.nutritionapplication.pojo.Item;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
  public class DBHelper extends SQLiteOpenHelper {
@@ -144,6 +142,19 @@ import java.util.Map;
             cursor.close();
             return foodItemNames;
         }
+    }
+
+    public int getRestaurantCarbohydrates(String itemname) {
+        SQLiteDatabase MYDB = this.getReadableDatabase();
+        int carbohydrates = 0;
+        Cursor cursor = MYDB.rawQuery("Select carbohydrates from restaurantItems where itemname = ?", new String[]{itemname});
+        if (cursor!=null && cursor.getCount()>0);{
+            cursor.moveToFirst();
+                    do{
+                        carbohydrates = cursor.getInt(0);
+                    }while(cursor.moveToNext());
+        }
+        return carbohydrates;
     }
 
     public Boolean insertFoodData(String itemname, int carbohydrates, String barcodeID) {
