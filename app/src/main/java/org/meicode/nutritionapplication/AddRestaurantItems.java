@@ -17,9 +17,6 @@ public class AddRestaurantItems extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_restaurant_items);
 
-
-
-        restaurantName = (EditText) findViewById(R.id.AddRestaurantName);
         restaurantItemName = (EditText) findViewById(R.id.AddRestaurantItemName);
         restaurantItemCategory = (EditText) findViewById(R.id.AddRestaurantItemCategory);
         restaurantItemCarbohydrates = (EditText) findViewById(R.id.AddRestaurantItemCarbohydrates);
@@ -29,16 +26,15 @@ public class AddRestaurantItems extends AppCompatActivity {
         submitRestaurantItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String strRestaurantName = restaurantName.getText().toString();
                 String strRestaurantItemName = restaurantItemName.getText().toString();
                 String strRestaurantItemCategory = restaurantItemCategory.getText().toString();
                 Double intRestaurantItemCarbohydrates = Double.parseDouble(restaurantItemCarbohydrates.getText().toString());
 
-                if (restaurantItemName.equals("") || restaurantItemName.equals("") ||
+                if (restaurantItemName.equals("") ||
                         restaurantItemCategory.equals("") || restaurantItemCarbohydrates.equals("")) {
                     Toast.makeText(AddRestaurantItems.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    DB.insertDataRestaurants(strRestaurantName, strRestaurantItemName, strRestaurantItemCategory, intRestaurantItemCarbohydrates);
+                    DB.insertDataRestaurantItems(strRestaurantItemCategory, strRestaurantItemName, intRestaurantItemCarbohydrates);
                     Toast.makeText(AddRestaurantItems.this, "Item successfully added", Toast.LENGTH_SHORT).show();
                 }
             }

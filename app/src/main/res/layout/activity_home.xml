@@ -7,11 +7,31 @@
     tools:context=".Home">
 
     <Button
+        android:id="@+id/btnAddRestaurantLinks"
+        android:layout_width="190dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="640dp"
+        android:text="Add Restaurant Links ( Admin use only )"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnRestaurants"
+        android:layout_width="190dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="564dp"
+        android:text="Add Restaurant ( Admin use only )"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/btnRestaurantItemSelection"
         android:layout_width="190dp"
         android:layout_height="75dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="380dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="328dp"
         android:text="Restaurant Item Selection"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,8 +50,8 @@
         android:id="@+id/btnProfileSettings"
         android:layout_width="190dp"
         android:layout_height="76dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="68dp"
         android:text="Profile Settings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +61,7 @@
         android:layout_width="190dp"
         android:layout_height="75dp"
         android:layout_marginStart="108dp"
-        android:layout_marginTop="284dp"
+        android:layout_marginTop="252dp"
         android:text="Restaurant Selection"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,8 +70,8 @@
         android:id="@+id/Barcode"
         android:layout_width="182dp"
         android:layout_height="67dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="188dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="168dp"
         android:text="Barcode"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,8 +80,8 @@
         android:id="@+id/btnItemRedirect"
         android:layout_width="190dp"
         android:layout_height="76dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="468dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="412dp"
         android:text="Add Item ( Admin use only )"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -70,8 +90,8 @@
         android:id="@+id/btnRestaurantItemRedirect"
         android:layout_width="190dp"
         android:layout_height="76dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="572dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="488dp"
         android:text="Add Restaurant Item ( Admin use only )"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

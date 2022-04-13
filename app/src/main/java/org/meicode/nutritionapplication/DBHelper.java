@@ -12,22 +12,28 @@ import org.meicode.nutritionapplication.pojo.Item;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
  public class DBHelper extends SQLiteOpenHelper {
 
-    public static final String DBNAME = "NutritionDatabase2.0.1.db";
+    public static final String DBNAME = "NutritionDatabase2.0.7.db";
 
     public DBHelper(@Nullable Context context) {
-        super(context, "NutritionDatabase2.0.2.db", null, 1);
+        super(context, "NutritionDatabase2.0.7.db", null, 1);
     }
 
     //Creating the table
     @Override
     public void onCreate(SQLiteDatabase MyDB) {
         MyDB.execSQL("create Table users(username TEXT primary key, password TEXT, insulin TEXT)");
-        MyDB.execSQL("create Table restaurants(restaurantname TEXT primary key, subcategory TEXT, itemname TEXT, carbohydrates REAL )");
+        MyDB.execSQL("create Table restaurants(restaurantID INTEGER primary key AUTOINCREMENT,restaurantname TEXT, subcategory TEXT)");
+        MyDB.execSQL("create Table restaurantItems(restaurantFoodID INTEGER primary key AUTOINCREMENT, subcategory TEXT, itemname TEXT, carbohydrates REAL)");
         MyDB.execSQL("create Table foodItems(id INTEGER primary key AUTOINCREMENT, itemname TEXT, carbohydrates INT, barcodeID TEXT )");
+        MyDB.execSQL("create Table restItems(RestFoodID INTEGER primary key AUTOINCREMENT, restaurantID INTEGER, restaurantFoodID INTEGER)");
+
+
     }
 
     @Override
@@ -52,34 +58,94 @@ import java.util.List;
             return true;
     }
 
-    public Boolean insertDataRestaurants(String restaurantname, String subcategory, String itemname, Double carbohydrates) {
+    public Boolean insertDataRestaurantItems( String subcategory, String itemname, Double carbohydrates) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-
-        contentValues.put("restaurantname", restaurantname);
         contentValues.put("subcategory", subcategory);
         contentValues.put("itemname", itemname);
         contentValues.put("carbohydrates", carbohydrates);
-        long result = MyDB.insert("restaurants", null, contentValues);
+
+        long result = MyDB.insert("restaurantItems", null, contentValues);
         if (result == -1) return false;
         else
             return true;
+
     }
 
-    public List<String> getAllRestaurants() {
-        List<String> list = new ArrayList<String>();
+     public Boolean insertDataRestaurants(String restaurantname, String subcategory) {
+         SQLiteDatabase MyDB = this.getWritableDatabase();
+         ContentValues contentValues = new ContentValues();
+         contentValues.put("restaurantname", restaurantname);
+         contentValues.put("subcategory", subcategory);
+
+         long result = MyDB.insert("restaurants", null, contentValues);
+         if (result == -1) return false;
+         else
+             return true;
+
+         // MyDB.rawQuery("SELECT * FROM restaurantItems INNER JOIN restaurants ON restaurants.restaurantname = restaurantItems.restaurantname", null);
+
+     }
+
+     public Boolean insertDataRestaurantFoodRelation(int restaurantID, int restaurantFoodID) {
+         SQLiteDatabase MyDB = this.getWritableDatabase();
+         ContentValues contentValues = new ContentValues();
+         contentValues.put("restaurantID", restaurantID);
+         contentValues.put("restaurantFoodID", restaurantFoodID);
+
+         long result = MyDB.insert("restItems", null, contentValues);
+         if (result == -1) return false;
+         else
+             return true;
+
+         // MyDB.rawQuery("SELECT * FROM restaurantItems INNER JOIN restaurants ON restaurants.restaurantname = restaurantItems.restaurantname", null);
+
+     }
+
+    public Map<Integer,String> getAllRestaurants() {
+        Map<Integer,String> map = new HashMap<>();
         SQLiteDatabase MYDB = this.getReadableDatabase();
 
-        Cursor cursor = MYDB.rawQuery("Select restaurantname From restaurants", null);
+        Cursor cursor = MYDB.rawQuery("Select restaurantID, restaurantname From restaurants", null);
         if (cursor.moveToFirst()) ;
         {
             do {
-                list.add(cursor.getString(0));
+                map.put(cursor.getInt(0),cursor.getString(1));
             } while (cursor.moveToNext());
             cursor.close();
-            return list;
+            return map;
         }
     }
+
+    public ArrayList<String> getAllRestaurantItems(Integer restaurantID){
+        ArrayList<String> foodList = new ArrayList<String>();
+        SQLiteDatabase MYDB = this.getReadableDatabase();
+
+        Cursor cursor = MYDB.rawQuery("Select restaurantFoodID From restItems WHERE restaurantID = ? ",new String[]{String.valueOf(restaurantID)});
+        if (cursor.moveToFirst()) ;
+        {
+            do {
+                foodList.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+            cursor.close();
+            return foodList;
+        }
+    }
+
+    public ArrayList<String> getAllRestaurantItemNames(Integer restaurantFoodID){
+        ArrayList<String> foodItemNames = new ArrayList<>();
+        SQLiteDatabase MYDB = this.getReadableDatabase();
+
+        Cursor cursor = MYDB.rawQuery("Select itemname from restaurantItems where restaurantFoodID = ?", new String[]{String.valueOf(restaurantFoodID)});
+        if (cursor.moveToFirst());{
+            do{
+                foodItemNames.add(cursor.getString(0));
+            }while(cursor.moveToNext());
+            cursor.close();
+            return foodItemNames;
+        }
+    }
+
     public Boolean insertFoodData(String itemname, int carbohydrates, String barcodeID) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

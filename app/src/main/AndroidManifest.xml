@@ -13,6 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NutritionApplication">
         <activity
+            android:name=".RestaurantItemSelection"
+            android:exported="false" />
+        <activity
+            android:name=".AddRestItemsRelationships"
+            android:exported="false" />
+        <activity
+            android:name=".AddRestaurants"
+            android:exported="false" />
+        <activity
             android:name=".RestaurantItems"
             android:exported="false" />
         <activity
