@@ -41,8 +41,6 @@ public class Barcode extends AppCompatActivity {
         btScan = findViewById(R.id.bt_scan);
         barResult = findViewById(R.id.barcodeResult);
         barContent = findViewById(R.id.barcodeContent);
-        contentCopy = findViewById(R.id.copyContent);
-        databaseCheck = findViewById(R.id.checkDatabase);
         textItemName = findViewById(R.id.txtItemName);
         textCarbohydrates = findViewById(R.id.txtCarbohydrates);
         DB = new DBHelper(this);

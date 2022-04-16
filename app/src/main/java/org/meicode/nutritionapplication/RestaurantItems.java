@@ -33,12 +33,10 @@ public class RestaurantItems extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_restaurant_items);
 
         restaurantSelection = (Spinner) findViewById(R.id.spinnerRestaurantSelection);
-        restaurantItemSelection = (Spinner) findViewById(R.id.spinnerRestaurantItemSelection);
 
         DB = new DBHelper(this);
 
         restaurantSelection.setOnItemSelectedListener(this);
-        restaurantItemSelection.setOnItemSelectedListener(this);
 
         loadRestaurantSpinnerData();
 

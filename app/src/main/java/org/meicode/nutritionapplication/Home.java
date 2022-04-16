@@ -48,8 +48,6 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Restaurant.class);
-                intent.putExtra("name1", "Dave");
-                intent.putExtra("name2", "Ben");
                 startActivity(intent);
             }
         });

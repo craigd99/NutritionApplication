@@ -214,14 +214,6 @@ import java.util.Map;
         return true;
     }
 
-     public Boolean updatePassword(String password, String username) {
-         SQLiteDatabase MYDB = this.getWritableDatabase();
-         ContentValues contentValues = new ContentValues();
-         contentValues.put("password", password);
-         MYDB.update("users", contentValues, "username = ?", new String[]{username});
-         return true;
-     }
-
     public Item retrieveItem(String barcodeID) {
         SQLiteDatabase MYDB = this.getReadableDatabase();
         barcodeID = barcodeID.replace("\n","");

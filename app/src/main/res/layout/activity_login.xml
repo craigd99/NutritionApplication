@@ -12,18 +12,22 @@
         android:id="@+id/username1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="User Name"
         android:layout_marginTop="50dp"
-        />
+        android:hint="User Name"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColorHint="#757575" />
 
     <EditText
         android:id="@+id/password1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:layout_marginTop="50dp"
         android:layout_below="@id/username1"
-        />
+        android:layout_marginTop="50dp"
+        android:hint="Password"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColorHint="#757575" />
 
     <Button
         android:id="@+id/btnsignin1"

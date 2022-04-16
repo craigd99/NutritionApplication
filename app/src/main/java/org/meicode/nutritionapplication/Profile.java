@@ -20,7 +20,6 @@ public class Profile extends AppCompatActivity {
         Button btnInsulin, btnPassword;
 
         btnInsulin = (Button) findViewById(R.id.btnUpdateInsulin);
-        btnPassword = (Button) findViewById(R.id.btnUpdatePassword);
 
         DBHelper DB;
         DB = new DBHelper(this);
@@ -54,18 +53,6 @@ public class Profile extends AppCompatActivity {
             public void onClick(View view) {
 
                 boolean isUpdate = DB.updateInsulin(usernameText.getText().toString(), insulinText.getText().toString());
-
-                if (isUpdate == true)
-                    Toast.makeText(Profile.this, "Data Updated", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(Profile.this, "Data not updated", Toast.LENGTH_LONG).show();
-            }
-        });
-        btnPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                boolean isUpdate = DB.updatePassword(usernameText.getText().toString(), passwordText.getText().toString());
 
                 if (isUpdate == true)
                     Toast.makeText(Profile.this, "Data Updated", Toast.LENGTH_LONG).show();

@@ -19,6 +19,7 @@ import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.sql.Array;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class RestaurantItemSelection extends AppCompatActivity implements Adapte
     Spinner restaurantItemSelection;
     DBHelper DB;
     TextView restaurantFoodItemOne, restaurantFoodItemTwo,restaurantFoodItemThree, restaurantFoodItemOneCarbs
-            ,restaurantFoodItemTwoCarbs,restaurantFoodItemThreeCarbs;
+            ,restaurantFoodItemTwoCarbs,restaurantFoodItemThreeCarbs, insulinRequirement;
     Button saveSelection, saveSelectionTwo, saveSelectionThree, restaurantCalculation;
 
 
@@ -43,6 +44,7 @@ public class RestaurantItemSelection extends AppCompatActivity implements Adapte
         restaurantFoodItemTwoCarbs = (TextView) findViewById(R.id.restaurantItemTwoCarbs);
         restaurantFoodItemThree = (TextView) findViewById(R.id.restaurantItemThree);
         restaurantFoodItemThreeCarbs = (TextView) findViewById(R.id.restaurantItemThreeCarbs);
+        insulinRequirement = (TextView) findViewById(R.id.txtInsulinRequirement);
         saveSelection = (Button) findViewById(R.id.btnSaveSelection);
         saveSelectionTwo = (Button) findViewById(R.id.btnSaveSelection2);
         saveSelectionThree = (Button) findViewById(R.id.btnSaveSelection3);
@@ -127,17 +129,19 @@ public class RestaurantItemSelection extends AppCompatActivity implements Adapte
             public void onClick(View view) {
 
                 SharedPreferences sharedPreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
 
                 String insulin = sharedPreferences.getString("insulin", "no");
-                int insulinNum = Integer.parseInt(insulin);
+                String[] insulinRatio = insulin.split(":");
+                int insulinRatioDose = Integer.parseInt(insulinRatio[0]);
+                int insulinRatioCarbs = Integer.parseInt(insulinRatio[1]);
+
                 int carbsNum = Integer.parseInt(restaurantFoodItemOneCarbs.getText().toString());
                 int carbsNumTwo = Integer.parseInt(restaurantFoodItemTwoCarbs.getText().toString());
                 int carbsNumThree = Integer.parseInt(restaurantFoodItemThreeCarbs.getText().toString());
                 int totalcarbs = carbsNum+carbsNumTwo+carbsNumThree;
-                System.out.println(totalcarbs % 10);
-                System.out.println(totalcarbs / (insulinNum/10));
-
+                int intInsulinRequirement = (insulinRatioDose%insulinRatioCarbs)*totalcarbs;
+                System.out.println(intInsulinRequirement);
+                insulinRequirement.setText(Integer.toString(intInsulinRequirement));
 
 
             }

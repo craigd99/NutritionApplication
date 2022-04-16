@@ -24,75 +24,41 @@
         android:id="@+id/barcodeResult"
         android:layout_width="184dp"
         android:layout_height="64dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="139dp"
+        android:layout_marginStart="113dp"
+        android:layout_marginTop="10dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/bt_scan" />
 
     <TextView
         android:id="@+id/barcodeContent"
         android:layout_width="165dp"
         android:layout_height="70dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="260dp"
-        android:layout_marginEnd="142dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="13dp"
         android:text="Content"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/barcodeID" />
 
     <TextView
         android:id="@+id/barcodeID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="216dp"
-        android:layout_marginEnd="142dp"
+        android:layout_marginStart="123dp"
+        android:layout_marginTop="15dp"
         android:text="Barcode ID"
         android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/copyContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="340dp"
-        android:layout_marginEnd="156dp"
-        android:text="Copy Content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/checkDatabase"
-        android:layout_width="220dp"
-        android:layout_height="88dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="412dp"
-        android:layout_marginEnd="127dp"
-        android:text="Check Database"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/barcodeResult" />
 
     <TextView
         android:id="@+id/txtItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="149dp"
-        android:layout_marginTop="528dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="560dp"
         android:text="ItemName"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,8 +68,8 @@
         android:id="@+id/txtCarbohydrates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="127dp"
-        android:layout_marginTop="586dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="632dp"
         android:text="Carbohydrates"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
