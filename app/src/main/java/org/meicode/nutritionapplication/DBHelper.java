@@ -16,10 +16,10 @@ import java.util.Map;
 
  public class DBHelper extends SQLiteOpenHelper {
 
-    public static final String DBNAME = "NutritionDatabase2.0.7.db";
+    public static final String DBNAME = "NutritionDatabase.db";
 
     public DBHelper(@Nullable Context context) {
-        super(context, "NutritionDatabase2.0.7.db", null, 1);
+        super(context, "NutritionDatabase.db", null, 1);
     }
 
     //Creating the table

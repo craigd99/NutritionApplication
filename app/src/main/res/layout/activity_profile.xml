@@ -46,6 +46,7 @@
         android:inputType="textPersonName"
         android:text="Insulin"
         android:textSize="24sp"
+        android:hint="Insulin Ratio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

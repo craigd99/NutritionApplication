@@ -43,7 +43,13 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        restaurantItemSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), RestaurantItems.class);
+                startActivity(intent);
+            }
+        });
         restaurantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +57,7 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         addItemRedirect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,14 +70,6 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AddRestaurantItems.class);
-                startActivity(intent);
-            }
-        });
-
-        restaurantItemSelection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RestaurantItems.class);
                 startActivity(intent);
             }
         });

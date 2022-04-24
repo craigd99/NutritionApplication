@@ -130,7 +130,7 @@ public class RestaurantItemSelection extends AppCompatActivity implements Adapte
 
                 SharedPreferences sharedPreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
 
-                String insulin = sharedPreferences.getString("insulin", "no");
+                String insulin = sharedPreferences.getString("insulin", "no value found");
                 String[] insulinRatio = insulin.split(":");
                 int insulinRatioDose = Integer.parseInt(insulinRatio[0]);
                 int insulinRatioCarbs = Integer.parseInt(insulinRatio[1]);
@@ -139,9 +139,10 @@ public class RestaurantItemSelection extends AppCompatActivity implements Adapte
                 int carbsNumTwo = Integer.parseInt(restaurantFoodItemTwoCarbs.getText().toString());
                 int carbsNumThree = Integer.parseInt(restaurantFoodItemThreeCarbs.getText().toString());
                 int totalcarbs = carbsNum+carbsNumTwo+carbsNumThree;
-                int intInsulinRequirement = (insulinRatioDose%insulinRatioCarbs)*totalcarbs;
+                double ratio = (double)insulinRatioDose / (double)insulinRatioCarbs;
+                double intInsulinRequirement = ratio*totalcarbs;
                 System.out.println(intInsulinRequirement);
-                insulinRequirement.setText(Integer.toString(intInsulinRequirement));
+                insulinRequirement.setText(Double.toString(intInsulinRequirement));
 
 
             }

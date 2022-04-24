@@ -15,8 +15,6 @@ public class Restaurant extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
-        Bundle extras = getIntent().getExtras();
-        String value = extras.getString("name2");
 
     }
     public void openKFC(View view){

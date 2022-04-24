@@ -12,12 +12,11 @@ import android.widget.Toast;
 
 public class Entry extends AppCompatActivity {
 
-
     //Declare variables to be used in future functions below
 
-    EditText username, password, repassword, insulin;
-    Button signup, signin, restaurant, barcode;
-    DBHelper DB;
+    private EditText username, password, repassword, insulin;
+   private Button signup, signin;
+    private DBHelper DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,7 @@ public class Entry extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String user = username.getText().toString();
+                user = escapeMetaCharacters(user);
                 String pass = password.getText().toString();
                 String repass = repassword.getText().toString();
                 String insulinvalue = insulin.getText().toString();
@@ -82,5 +82,16 @@ public class Entry extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    // Code to handle SQL injection attack
+    private String escapeMetaCharacters(String inputString){
+        final String[] metaCharacters = {"","^","$","{","}","[","]","(",")",".","*","+","?","|","<",">","-","&","%"};
+
+        for (int i = 0 ; i < metaCharacters.length ; i++){
+            if(inputString.contains(metaCharacters[i])){
+                inputString = inputString.replace(metaCharacters[i],"");
+            }
+        }
+        return inputString;
     }
 }

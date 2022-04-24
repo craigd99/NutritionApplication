@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,12 +22,13 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import org.meicode.nutritionapplication.pojo.Item;
+import org.w3c.dom.Text;
 
 public class Barcode extends AppCompatActivity {
 
     //Initialize variable
 
-    Button btScan, contentCopy,databaseCheck;
+    Button btScan, btCalculateInsulin;
     TextView barResult,barContent, textItemName, textCarbohydrates;
     DBHelper DB;
 
@@ -43,26 +46,8 @@ public class Barcode extends AppCompatActivity {
         barContent = findViewById(R.id.barcodeContent);
         textItemName = findViewById(R.id.txtItemName);
         textCarbohydrates = findViewById(R.id.txtCarbohydrates);
+        btCalculateInsulin = findViewById(R.id.btnBarcodeCalculation);
         DB = new DBHelper(this);
-        contentCopy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ClipboardManager clipboard = (ClipboardManager)
-                getSystemService(CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("simple text", barContent.getText());
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(getApplicationContext(), "Text copied to clipboard",
-                Toast.LENGTH_LONG).show();
-            }
-        });
-
-        databaseCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://eandata.com/search.php"));
-                    startActivity(browserIntent);
-            }
-        });
 
         btScan.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -127,8 +112,24 @@ public class Barcode extends AppCompatActivity {
                 }
             }
         }
-
         textItemName.setText(item.getItemName());
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
+
+        String insulin = sharedPreferences.getString("insulin", "no value found");
+        String[] insulinRatio = insulin.split(":");
+        int insulinRatioDose = Integer.parseInt(insulinRatio[0]);
+        int insulinRatioCarbs = Integer.parseInt(insulinRatio[1]);
+
+
+        double ratio = (double)insulinRatioDose / (double)insulinRatioCarbs;
+        double intInsulinRequirement = ratio*(double)carbs;
+        btCalculateInsulin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textCarbohydrates.setText(Double.toString(intInsulinRequirement));
+            }
+        });
 
         //check condition
         if (intentResult.getContents()!= null){

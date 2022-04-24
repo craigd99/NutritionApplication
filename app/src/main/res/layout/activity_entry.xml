@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/username"
         android:layout_marginTop="199dp"
-        android:hint="Insulin Factor"
-        android:inputType="number"
+        android:hint="Insulin Ratio i.e. 1:10"
+        android:inputType="text"
         android:minHeight="48dp"
         android:textColorHint="#757575" />
 

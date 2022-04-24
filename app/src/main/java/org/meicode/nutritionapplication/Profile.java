@@ -35,7 +35,7 @@ public class Profile extends AppCompatActivity {
         System.out.println(insulinRetrieve);
 
         editor.putString("insulin", insulinRetrieve).commit();
-        System.out.println(sharedPreferences.getString("insulin", "no"));
+        System.out.println(sharedPreferences.getString("insulin", "no value found"));
 
 
         TextView usernameText = (TextView) findViewById(R.id.profileusername);
@@ -44,8 +44,6 @@ public class Profile extends AppCompatActivity {
         passwordText.setText(password);
         TextView insulinText = (TextView) findViewById(R.id.profileinsulin);
         insulinText.setText(insulinRetrieve);
-
-        String insulinUpdate = insulinRetrieve;
 
 
         btnInsulin.setOnClickListener(new View.OnClickListener() {
